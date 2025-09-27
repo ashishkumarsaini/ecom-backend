@@ -1,0 +1,27 @@
+{
+  "name": "ecom-backend",
+  "version": "1.0.0",
+  "description": "This project consist of all the backend logic for an e-com application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishkumarsaini/ecom-backend.git"
+  },
+  "author": "Ashish Kumar Saini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashishkumarsaini/ecom-backend/issues"
+  },
+  "homepage": "https://github.com/ashishkumarsaini/ecom-backend#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.2"
+  }
+}
