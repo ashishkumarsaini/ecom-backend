@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-var crypto = require('crypto');
-const { UserRolesEnum, AvailableUserRoles } = require('../utils/user');
+const {
+  UserRolesEnum,
+  AvailableUserRoles,
+  generateEmailVerificationToken,
+  generateAccessToken,
+  generateRefreshToken,
+  generateHashedPassword,
+  compareHashedPassword,
+} = require('../utils/user');
 const {
   PASSWORD_MIN_LIMIT,
   PASSWORD_MAX_LIMIT,
@@ -69,19 +74,33 @@ userSchema.pre('save', async function (next) {
     return next();
   }
 
-  bcrypt.hash(this.password, 10);
+  this.password = await generateHashedPassword(this.password);
 });
 
-userSchema.methods.generateTemporaryTokens = function () {
-  const unHashedToken = crypto.randomBytes(20).toString('hex');
-  const hashedToken = crypto
-    .createHash('sha256')
-    .update(unHashedToken)
-    .digest('hex');
+userSchema.methods.generateTemporaryTokens = generateEmailVerificationToken;
 
-  const tokenExpiry = Date.now() + 20 * 60 * 1000; // 20 min
+userSchema.methods.isValidPassword = async function (password) {
+  return await compareHashedPassword(password, this.password);
+};
 
-  return { unHashedToken, hashedToken, tokenExpiry };
+userSchema.methods.generateAccessToken = function () {
+  const payload = {
+    _id: this._id,
+    email: this.email,
+    firstName: this.firstName,
+  };
+
+  return generateAccessToken(payload);
+};
+
+userSchema.methods.generateRefreshToken = function () {
+  const payload = {
+    _id: this._id,
+    email: this.email,
+    firstName: this.firstName,
+  };
+
+  return generateRefreshToken(payload);
 };
 
 const User = mongoose.model('User', userSchema);
