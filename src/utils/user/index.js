@@ -2,6 +2,7 @@ const { UserRolesEnum, AvailableUserRoles } = require('./constants');
 const {
   generateEmailVerificationToken,
   generateAccessToken,
+  extractAccessTokenPayload,
   generateRefreshToken,
 } = require('./tokens');
 const {
@@ -14,6 +15,7 @@ module.exports = {
   AvailableUserRoles,
   generateEmailVerificationToken,
   generateAccessToken,
+  extractAccessTokenPayload,
   generateRefreshToken,
   generateHashedPassword,
   compareHashedPassword,

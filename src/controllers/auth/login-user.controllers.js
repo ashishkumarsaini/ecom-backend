@@ -3,16 +3,8 @@ const { User } = require('../../models/user.models');
 const { APIError, APIResponse } = require('../../utils/api');
 
 const generateAccessAndRefreshTokens = async (userId) => {
-  // if (!userId) {
-  //   throw new APIError(400, 'User id is empty to generate tokens');
-  // }
-
   try {
     const searchedUser = await User.findById(userId);
-
-    // if (!searchedUser) {
-    //   throw new APIError(400, 'User empty to generate tokens');
-    // }
 
     const accessToken = searchedUser.generateAccessToken();
     const refreshToken = searchedUser.generateRefreshToken();

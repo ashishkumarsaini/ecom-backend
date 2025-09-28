@@ -1,4 +1,4 @@
-const { generateJsonWebToken } = require('../jwt');
+const { generateJsonWebToken, extractJsonWebTokenPayload } = require('../jwt');
 const {
   generateCryptoHashedToken,
   generateCryptoUnhashedToken,
@@ -20,6 +20,9 @@ const generateAccessToken = (payload) =>
     process.env.ACCESS_TOKEN_SECRET_EXPIRY
   );
 
+const extractAccessTokenPayload = (accessToken) =>
+  extractJsonWebTokenPayload(accessToken, process.env.ACCESS_TOKEN_SECRET);
+
 const generateRefreshToken = () =>
   generateJsonWebToken(
     {
@@ -34,5 +37,6 @@ const generateRefreshToken = () =>
 module.exports = {
   generateEmailVerificationToken,
   generateAccessToken,
+  extractAccessTokenPayload,
   generateRefreshToken,
 };

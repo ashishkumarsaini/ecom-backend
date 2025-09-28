@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 const { APIError } = require('../utils/api');
 
-exports.validateMiddleware = (req, res, next) => {
+const validateMiddleware = (req, res, next) => {
   const errors = validationResult(req);
 
   if (errors.isEmpty()) {
@@ -14,3 +14,5 @@ exports.validateMiddleware = (req, res, next) => {
 
   throw new APIError(422, 'Data is not valid', extractedErrors);
 };
+
+module.exports = { validateMiddleware };
