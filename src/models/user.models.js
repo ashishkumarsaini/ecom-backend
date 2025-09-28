@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const { UserRolesEnum, AvailableUserRoles } = require('../utils/user');
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var crypto = require('crypto');
+const { UserRolesEnum, AvailableUserRoles } = require('../utils/user');
 const {
   PASSWORD_MIN_LIMIT,
   PASSWORD_MAX_LIMIT,
@@ -49,10 +51,13 @@ const userSchema = new mongoose.Schema(
     forgotPasswordTokenExpiry: {
       type: Date,
     },
-    emailVericationToken: {
+    isEmailVerified: {
+      type: Boolean,
+    },
+    emailVerificationToken: {
       type: String,
     },
-    emailVericaitionTokenExpiry: {
+    emailVerificaitionTokenExpiry: {
       type: Date,
     },
   },
@@ -66,6 +71,18 @@ userSchema.pre('save', async function (next) {
 
   bcrypt.hash(this.password, 10);
 });
+
+userSchema.methods.generateTemporaryTokens = function () {
+  const unHashedToken = crypto.randomBytes(20).toString('hex');
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(unHashedToken)
+    .digest('hex');
+
+  const tokenExpiry = Date.now() + 20 * 60 * 1000; // 20 min
+
+  return { unHashedToken, hashedToken, tokenExpiry };
+};
 
 const User = mongoose.model('User', userSchema);
 
