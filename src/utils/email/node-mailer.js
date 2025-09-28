@@ -1,8 +1,7 @@
 const Mailgen = require('mailgen');
 const nodemailer = require('nodemailer');
-const { APIError } = require('../api');
 
-exports.sendEmail = async (options) => {
+const sendEmail = async (options) => {
   const mailGenerator = new Mailgen({
     theme: 'default',
     product: {
@@ -40,3 +39,5 @@ exports.sendEmail = async (options) => {
     );
   }
 };
+
+module.exports = { sendEmail };

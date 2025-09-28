@@ -16,7 +16,7 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
     const decodedToken = extractAccessTokenPayload(token);
 
     if (!decodedToken || !decodedToken._id) {
-      throw new APIError(401, 'Unable to decode token');
+      throw new APIError(401, 'Error in validating token');
     }
 
     const user = await User.findById(decodedToken._id).select(
@@ -24,13 +24,13 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
     );
 
     if (!user) {
-      throw new APIError(401, 'User not found for decoded token');
+      throw new APIError(401, 'Error in validating user');
     }
 
     req.user = user;
     next();
   } catch (error) {
-    throw new APIError(401, 'Error in validating user');
+    throw new APIError(401, 'Unauthorized Access');
   }
 });
 

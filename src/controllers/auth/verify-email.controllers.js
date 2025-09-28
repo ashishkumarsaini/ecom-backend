@@ -1,6 +1,6 @@
 const { asyncHandler } = require('../../utils/async-handler');
 const { APIError, APIResponse } = require('../../utils/api');
-const { generateHashedToken } = require('../../utils/crypto');
+const { generateCryptoHashedToken } = require('../../utils/crypto');
 const { User } = require('../../models/user.models');
 
 const verifyEmail = asyncHandler(async (req, res) => {
@@ -10,7 +10,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
     throw new APIError(400, 'Email veification token is missing');
   }
 
-  const hashedToken = generateHashedToken(verificationToken);
+  const hashedToken = generateCryptoHashedToken(verificationToken);
 
   const user = await User.findOne({
     emailVerificationToken: hashedToken,

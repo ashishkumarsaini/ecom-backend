@@ -28,8 +28,6 @@ const registerUser = asyncHandler(async (req, res) => {
   createdUser.emailVerificationToken = hashedToken;
   createdUser.emailVerificaitionTokenExpiry = tokenExpiry;
 
-  createdUser.save({ validateBeforeSave: false });
-
   await sendEmail({
     email: createdUser.email,
     subject: 'Please verify your email',
@@ -40,6 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
       )}/api/auth/verify-email/${unHashedToken}`
     ),
   });
+  createdUser.save({ validateBeforeSave: false });
 
   res
     .status(200)

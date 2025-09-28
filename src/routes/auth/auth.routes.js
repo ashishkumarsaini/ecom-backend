@@ -4,6 +4,7 @@ const {
   verifyEmail,
   loginUser,
   logoutUser,
+  resendVerifyEmail,
 } = require('../../controllers/auth');
 const {
   validateMiddleware,
@@ -24,5 +25,6 @@ authRouter
   .route('/login')
   .post(userLoginValidator(), validateMiddleware, loginUser);
 authRouter.route('/logout').post(verifyJWT, logoutUser);
+authRouter.route('/resend-verify-email').post(verifyJWT, resendVerifyEmail);
 
 module.exports = { authRouter };
