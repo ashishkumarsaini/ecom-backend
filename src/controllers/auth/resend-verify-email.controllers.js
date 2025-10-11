@@ -29,7 +29,7 @@ const resendVerifyEmail = asyncHandler(async (req, res) => {
     subject: 'Please verify your email',
     mailgenContent: emailVerificationMailGenerator(
       user.firstName,
-      `${FRONTEND_HOST}/user/verify-email/${unHashedToken}`
+      `${FRONTEND_HOST}/user/verify-email/?verifyToken=${unHashedToken}`
     ),
   });
 

@@ -25,8 +25,7 @@ const envVariables = getEnvVariables() || {};
 
 // application
 const APP_PORT = envVariables.APP_PORT || 8080;
-const CORS_ORIGIN =
-  envVariables.CORS_ORIGIN?.split(',') || 'http://localhost:3000';
+const CORS_ORIGIN = envVariables.CORS_ORIGIN || '';
 
 // mongo
 const MONGO_URI = envVariables.MONGO_URI || '';

@@ -6,9 +6,12 @@ const initializeApplication = () => {
   connectDatabase()
     .then(() => {
       app.listen(APP_PORT, (error) => {
+        if (error) {
+          console.error('❌ Failed to start application. Error: ', error);
+        }
+
         console.log(
-          `✅ Express app listening at http://localhost:${APP_PORT}. Error: `,
-          error
+          `✅ Express app listening at http://localhost:${APP_PORT} `
         );
       });
     })

@@ -23,6 +23,10 @@ const registerUser = asyncHandler(async (req, res) => {
     lastName,
   });
 
+  if (!createdUser) {
+    throw new APIError(400, 'Failed to register user');
+  }
+
   const { unHashedToken, hashedToken, tokenExpiry } =
     createdUser.generateTemporaryTokens();
 
@@ -34,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
     subject: 'Please verify your email',
     mailgenContent: emailVerificationMailGenerator(
       createdUser.firstName,
-      `${FRONTEND_HOST}/user/verify-email/${unHashedToken}`
+      `${FRONTEND_HOST}/user/verify-email/?verifyToken=${unHashedToken}`
     ),
   });
   createdUser.save({ validateBeforeSave: false });
