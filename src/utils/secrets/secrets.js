@@ -1,3 +1,7 @@
+const dotenv = require('dotenv');
+
+dotenv.config({ path: '.env' });
+
 const env = process.env;
 
 const getEnvVariables = () => {
@@ -17,29 +21,44 @@ const getEnvVariables = () => {
   };
 };
 
+const envVariables = getEnvVariables() || {};
+
 // application
-export const APP_PORT = getEnvVariables().APP_PORT || 8080;
-export const CORS_ORIGIN =
-  getEnvVariables().CORS_ORIGIN?.split(',') || 'http://localhost:3000';
+const APP_PORT = envVariables.APP_PORT || 8080;
+const CORS_ORIGIN =
+  envVariables.CORS_ORIGIN?.split(',') || 'http://localhost:3000';
 
 // mongo
-export const MONGO_URI = getEnvVariables().MONGO_URI || '';
+const MONGO_URI = envVariables.MONGO_URI || '';
 
 //auth
-export const ACCESS_TOKEN_SECRET = getEnvVariables().ACCESS_TOKEN_SECRET || '';
-export const ACCESS_TOKEN_SECRET_EXPIRY =
-  getEnvVariables().ACCESS_TOKEN_SECRET_EXPIRY || '';
-export const REFRESH_TOKEN_SECRET =
-  getEnvVariables().REFRESH_TOKEN_SECRET || '';
-export const REFRESH_TOKEN_SECRET_EXPIRY =
-  getEnvVariables().REFRESH_TOKEN_SECRET_EXPIRY || '';
+const ACCESS_TOKEN_SECRET = envVariables.ACCESS_TOKEN_SECRET || '';
+const ACCESS_TOKEN_SECRET_EXPIRY =
+  envVariables.ACCESS_TOKEN_SECRET_EXPIRY || '';
+const REFRESH_TOKEN_SECRET = envVariables.REFRESH_TOKEN_SECRET || '';
+const REFRESH_TOKEN_SECRET_EXPIRY =
+  envVariables.REFRESH_TOKEN_SECRET_EXPIRY || '';
 
 // mailtrap
-export const MAIL_TRAP_HOST = getEnvVariables().MAIL_TRAP_HOST || '';
-export const MAIL_TRAP_PORT = getEnvVariables().MAIL_TRAP_PORT || '';
-export const MAIL_TRAP_USER_NAME = getEnvVariables().MAIL_TRAP_USER_NAME || '';
-export const MAIL_TRAP_USER_PASS = getEnvVariables().MAIL_TRAP_USER_PASS || '';
+const MAIL_TRAP_HOST = envVariables.MAIL_TRAP_HOST || '';
+const MAIL_TRAP_PORT = envVariables.MAIL_TRAP_PORT || '';
+const MAIL_TRAP_USER_NAME = envVariables.MAIL_TRAP_USER_NAME || '';
+const MAIL_TRAP_USER_PASS = envVariables.MAIL_TRAP_USER_PASS || '';
 
 // fe
-export const FRONTEND_HOST =
-  getEnvVariables().FRONTEND_HOST || 'http://localhost:3000';
+const FRONTEND_HOST = envVariables.FRONTEND_HOST || 'http://localhost:3000';
+
+module.exports = {
+  APP_PORT,
+  CORS_ORIGIN,
+  MONGO_URI,
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_SECRET_EXPIRY,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET_EXPIRY,
+  MAIL_TRAP_HOST,
+  MAIL_TRAP_PORT,
+  MAIL_TRAP_USER_NAME,
+  MAIL_TRAP_USER_PASS,
+  FRONTEND_HOST,
+};

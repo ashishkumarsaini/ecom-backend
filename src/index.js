@@ -1,8 +1,6 @@
-const dotenv = require('dotenv');
 const { app } = require('./app');
 const { connectDatabase } = require('./database');
-
-dotenv.config({ path: '.env' });
+const { APP_PORT } = require('./utils/secrets');
 
 const initializeApplication = () => {
   connectDatabase()
