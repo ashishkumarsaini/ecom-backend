@@ -30,7 +30,7 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new APIError(400, 'User does not exists');
   }
 
-  const isValidPassword = searchedUser.isValidPassword(password);
+  const isValidPassword = await searchedUser.isValidPassword(password);
 
   if (!isValidPassword) {
     throw new APIError(400, 'Password is incorrect');

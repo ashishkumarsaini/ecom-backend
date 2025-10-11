@@ -40,9 +40,13 @@ const registerUser = asyncHandler(async (req, res) => {
   });
   createdUser.save({ validateBeforeSave: false });
 
+  const user = await User.findById(createdUser._id).select(
+    '-password -refreshToken -forgotPasswordToken -forgotPasswordTokenExpiry -emailVerificationToken -emailVerificaitionTokenExpiry'
+  );
+
   res
     .status(200)
-    .json(new APIResponse(200, 'User registered successfully', createdUser));
+    .json(new APIResponse(200, 'User registered successfully', user));
 });
 
 module.exports = { registerUser };

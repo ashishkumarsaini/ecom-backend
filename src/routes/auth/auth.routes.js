@@ -5,6 +5,9 @@ const {
   loginUser,
   logoutUser,
   resendVerifyEmail,
+  forgotPasswordRequest,
+  resetForgotPassword,
+  changePassword,
 } = require('../../controllers/auth');
 const {
   validateMiddleware,
@@ -12,6 +15,8 @@ const {
 const {
   userRegisterValidator,
   userLoginValidator,
+  forgotPasswordValidator,
+  resetPasswordValidator,
 } = require('../../validators/auth.validators');
 const { verifyJWT } = require('../../middlewares/auth.middlewares');
 
@@ -26,5 +31,12 @@ authRouter
   .post(userLoginValidator(), validateMiddleware, loginUser);
 authRouter.route('/logout').post(verifyJWT, logoutUser);
 authRouter.route('/resend-verify-email').post(verifyJWT, resendVerifyEmail);
+authRouter
+  .route('/forgot-password')
+  .post(forgotPasswordValidator(), validateMiddleware, forgotPasswordRequest);
+authRouter
+  .route('/reset-password/:resetToken')
+  .post(resetPasswordValidator(), validateMiddleware, resetForgotPassword);
+authRouter.route('/change-password').post(verifyJWT, changePassword);
 
 module.exports = { authRouter };
