@@ -1,8 +1,9 @@
 const { default: mongoose } = require('mongoose');
+const { MONGO_URI } = require('../utils/secrets');
 
 const connectDatabase = async () => {
   await mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(MONGO_URI)
     .then(() => {
       console.log('✅ Mongoose database connected');
     })

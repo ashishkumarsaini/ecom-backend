@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { authRouter } = require('./routes/auth');
+const { CORS_ORIGIN } = require('./utils/secrets');
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(',') || 'http://localhost:3000',
+    origin: CORS_ORIGIN,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

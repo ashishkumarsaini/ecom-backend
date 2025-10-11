@@ -5,6 +5,7 @@ const {
   sendEmail,
   emailVerificationMailGenerator,
 } = require('../../utils/email');
+const { FRONTEND_HOST } = require('../../utils/secrets');
 
 const registerUser = asyncHandler(async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -33,9 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
     subject: 'Please verify your email',
     mailgenContent: emailVerificationMailGenerator(
       createdUser.firstName,
-      `${req.protocol}://${req.get(
-        'host'
-      )}/api/auth/verify-email/${unHashedToken}`
+      `${FRONTEND_HOST}/user/verify-email/${unHashedToken}`
     ),
   });
   createdUser.save({ validateBeforeSave: false });

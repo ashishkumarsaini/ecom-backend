@@ -4,17 +4,18 @@ const { connectDatabase } = require('./database');
 
 dotenv.config({ path: '.env' });
 
-const port = process.env.PORT || 8080;
-
 const initializeApplication = () => {
   connectDatabase()
     .then(() => {
-      app.listen(port, (error) => {
-        console.log(`✅ Express app listening at http://localhost:${port}`);
+      app.listen(APP_PORT, (error) => {
+        console.log(
+          `✅ Express app listening at http://localhost:${APP_PORT}. Error: `,
+          error
+        );
       });
     })
     .catch((error) => {
-      console.error('❌ Failed to start application', error);
+      console.error('❌ Failed to start application. Error: ', error);
       process.exit(1);
     });
 };

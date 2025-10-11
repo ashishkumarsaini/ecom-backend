@@ -3,6 +3,12 @@ const {
   generateCryptoHashedToken,
   generateCryptoUnhashedToken,
 } = require('../crypto');
+const {
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_SECRET_EXPIRY,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET_EXPIRY,
+} = require('../secrets');
 
 const generateEmailVerificationToken = () => {
   const unHashedToken = generateCryptoUnhashedToken();
@@ -16,12 +22,12 @@ const generateEmailVerificationToken = () => {
 const generateAccessToken = (payload) =>
   generateJsonWebToken(
     payload,
-    process.env.ACCESS_TOKEN_SECRET,
-    process.env.ACCESS_TOKEN_SECRET_EXPIRY
+    ACCESS_TOKEN_SECRET,
+    ACCESS_TOKEN_SECRET_EXPIRY
   );
 
 const extractAccessTokenPayload = (accessToken) =>
-  extractJsonWebTokenPayload(accessToken, process.env.ACCESS_TOKEN_SECRET);
+  extractJsonWebTokenPayload(accessToken, ACCESS_TOKEN_SECRET);
 
 const generateRefreshToken = () =>
   generateJsonWebToken(
@@ -30,8 +36,8 @@ const generateRefreshToken = () =>
       email: this.email,
       firstName: this.firstName,
     },
-    process.env.REFRESH_TOKEN_SECRET,
-    process.env.REFRESH_TOKEN_SECRET_EXPIRY
+    REFRESH_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET_EXPIRY
   );
 
 module.exports = {

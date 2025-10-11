@@ -1,5 +1,11 @@
 const Mailgen = require('mailgen');
 const nodemailer = require('nodemailer');
+const {
+  MAIL_TRAP_HOST,
+  MAIL_TRAP_PORT,
+  MAIL_TRAP_USER_NAME,
+  MAIL_TRAP_USER_PASS,
+} = require('../secrets');
 
 const sendEmail = async (options) => {
   const mailGenerator = new Mailgen({
@@ -11,11 +17,11 @@ const sendEmail = async (options) => {
   });
 
   const transporter = nodemailer.createTransport({
-    host: process.env.MAIL_TRAP_HOST,
-    port: process.env.MAIL_TRAP_PORT,
+    host: MAIL_TRAP_HOST,
+    port: MAIL_TRAP_PORT,
     auth: {
-      user: process.env.MAIL_TRAP_USER_NAME,
-      pass: process.env.MAIL_TRAP_USER_PASS,
+      user: MAIL_TRAP_USER_NAME,
+      pass: MAIL_TRAP_USER_PASS,
     },
   });
 

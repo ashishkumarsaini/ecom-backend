@@ -3,6 +3,7 @@ const { User } = require('../../models/user.models');
 const { APIError, APIResponse } = require('../../utils/api');
 const { sendEmail, forgotPasswordMailGenerator } = require('../../utils/email');
 const { generateCryptoHashedToken } = require('../../utils/crypto');
+const { FRONTEND_HOST } = require('../../utils/secrets');
 
 const forgotPasswordRequest = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -28,9 +29,7 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
     subject: 'Password reset request',
     mailgenContent: forgotPasswordMailGenerator(
       user.username,
-      `${req.protocol}://${req.get(
-        'host'
-      )}/api/auth/reset-password/${unHashedToken}`
+      `${FRONTEND_HOST}/user/reset-password/${unHashedToken}`
     ),
   });
 

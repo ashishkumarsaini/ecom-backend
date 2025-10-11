@@ -5,6 +5,7 @@ const {
   sendEmail,
   emailVerificationMailGenerator,
 } = require('../../utils/email');
+const { FRONTEND_HOST } = require('../../utils/secrets');
 
 const resendVerifyEmail = asyncHandler(async (req, res) => {
   if (!req.user) {
@@ -28,9 +29,7 @@ const resendVerifyEmail = asyncHandler(async (req, res) => {
     subject: 'Please verify your email',
     mailgenContent: emailVerificationMailGenerator(
       user.firstName,
-      `${req.protocol}://${req.get(
-        'host'
-      )}/api/auth/verify-email/${unHashedToken}`
+      `${FRONTEND_HOST}/user/verify-email/${unHashedToken}`
     ),
   });
 
