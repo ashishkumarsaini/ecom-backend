@@ -21,10 +21,10 @@ app.use(
 
 app.use('/api/auth', authRouter);
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.status(200).json({
     message: 'Hello!!!',
   });
 });
 
-module.exports = { app };
+module.exports = app;

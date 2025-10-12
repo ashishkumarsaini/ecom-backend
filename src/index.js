@@ -1,4 +1,4 @@
-const { app } = require('./app');
+const app = require('./app');
 const { connectDatabase } = require('./database');
 const { APP_PORT } = require('./utils/secrets');
 
