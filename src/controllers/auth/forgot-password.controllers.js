@@ -29,7 +29,7 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
     subject: 'Password reset request',
     mailgenContent: forgotPasswordMailGenerator(
       user.username,
-      `${FRONTEND_HOST}/user/reset-password/?verifyToken=${unHashedToken}`
+      `${FRONTEND_HOST}/reset-password/?verifyToken=${unHashedToken}`
     ),
   });
 
