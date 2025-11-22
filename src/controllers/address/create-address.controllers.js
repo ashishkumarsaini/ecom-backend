@@ -11,34 +11,15 @@ const createAddress = asyncHandler(async (req, res) => {
     throw new APIError(401, 'Address is not completed!');
   }
 
-  const {
-    fullName,
-    phone,
-    line1,
-    line2,
-    city,
-    state,
-    country,
-    zipCode,
-    type,
-    isDefault,
-  } = req.body;
+  const userContainsAddressCount = await Address.countDocuments({
+    userId: req.user._id,
+  });
 
   const address = await Address.create({
     userId: req.user._id,
-    fullName,
-    phone,
-    line1,
-    line2,
-    city,
-    state,
-    country,
-    zipCode,
-    type,
-    isDefault,
-  })
-    .then()
-    .catch((error) => console.log(error));
+    ...req.body,
+    isDefault: Boolean(userContainsAddressCount <= 0),
+  });
 
   if (!address) {
     throw new APIResponse(400, 'Failed to save address');

@@ -7,11 +7,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     throw new APIError('401', 'User not found');
   }
 
-  await User.findOneAndUpdate(
-    req.user._id,
-    { $set: { refreshToken: '' } },
-    { new: true }
-  );
+  await User.findOneAndUpdate(req.user._id, { $set: { refreshToken: '' } });
 
   const options = {
     httpsOnly: true,

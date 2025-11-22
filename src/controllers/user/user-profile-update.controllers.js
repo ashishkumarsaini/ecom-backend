@@ -9,18 +9,12 @@ const userProfileUpdate = asyncHandler(async (req, res) => {
 
   const { firstName, lastName } = req.body;
 
-  const user = await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      firstName: firstName,
-      lastName: lastName,
-    },
-    { new: true }
-  ).select(
+  const user = await User.findByIdAndUpdate(req.user._id, {
+    firstName: firstName,
+    lastName: lastName,
+  }).select(
     '-password -refreshToken -forgotPasswordToken -forgotPasswordTokenExpiry -emailVerificationToken -emailVerificaitionTokenExpiry'
   );
-
-  user.filteredUser();
 
   if (!user) {
     throw new APIError(401, 'Failed to update user!');

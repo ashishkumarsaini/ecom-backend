@@ -23,7 +23,7 @@ app.use(
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use('/api/user/address', addressRouter);
+app.use('/api/address', addressRouter);
 
 app.get('/health', (_req, res) => {
   res.status(200).json({

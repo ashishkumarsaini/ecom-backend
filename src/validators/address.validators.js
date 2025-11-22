@@ -6,6 +6,7 @@ const {
   ADDRESS_LINE_MAX_LENGTH,
 } = require('../utils/address');
 
+// field validators
 const fullNameValidator = body('fullName')
   .trim()
   .notEmpty()
@@ -57,8 +58,7 @@ const zipCodeValidator = body('zipCode')
   .withMessage('City is required!');
 
 // routes validators
-
-const createAddressValidators = [
+const addressValidators = [
   fullNameValidator,
   phoneValidator,
   addressLine1Validator,
@@ -76,5 +76,5 @@ module.exports = {
   stateValidator,
   countryValidator,
   zipCodeValidator,
-  createAddressValidators,
+  addressValidators,
 };
