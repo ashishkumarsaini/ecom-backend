@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { authRouter } = require('./routes/auth');
 const { CORS_ORIGIN } = require('./utils/secrets');
+const { userRouter } = require('./routes/user');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 );
 
 app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 app.get('/', (_req, res) => {
   res.status(200).json({

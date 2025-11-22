@@ -1,9 +1,8 @@
 const { body } = require('express-validator');
+const { lastNameValidator, firstNameValidator } = require('./user.validators');
 
 const PASSWORD_MIN_LIMIT = 6;
 const PASSWORD_MAX_LIMIT = 64;
-const FIRST_NAME_MAX_LIMIT = 50;
-const LAST_NAME_MAX_LIMIT = 50;
 
 const emailValidator = body('email')
   .trim()
@@ -22,18 +21,6 @@ const passwordValidator = (validateKey) =>
     .withMessage(
       `Password should be between ${PASSWORD_MIN_LIMIT} to ${PASSWORD_MAX_LIMIT} characters`
     );
-
-const firstNameValidator = body('firstName')
-  .trim()
-  .notEmpty()
-  .withMessage('Full name is required')
-  .isLength({ min: 1, max: FIRST_NAME_MAX_LIMIT })
-  .withMessage(`First Name should maximum ${FIRST_NAME_MAX_LIMIT} characters`);
-
-const lastNameValidator = body('lastName')
-  .trim()
-  .isLength({ max: LAST_NAME_MAX_LIMIT })
-  .withMessage(`Last Name should maximum ${LAST_NAME_MAX_LIMIT} characters`);
 
 const userRegisterValidator = () => [
   emailValidator,
@@ -59,6 +46,4 @@ module.exports = {
   changePasswordValidator,
   PASSWORD_MIN_LIMIT,
   PASSWORD_MAX_LIMIT,
-  FIRST_NAME_MAX_LIMIT,
-  LAST_NAME_MAX_LIMIT,
 };
