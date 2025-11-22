@@ -4,7 +4,6 @@ const {
   updateUserProfileValidators,
 } = require('../../validators/user.validators');
 const { userProfileUpdate } = require('../../controllers/user');
-
 const userRouter = express.Router();
 
 userRouter
