@@ -5,6 +5,7 @@ const { CORS_ORIGIN } = require('./utils/secrets');
 const { authRouter } = require('./routes/auth');
 const { userRouter } = require('./routes/user');
 const { addressRouter } = require('./routes/address');
+const { productRouter } = require('./routes/product');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/address', addressRouter);
+app.use('/api/product', productRouter);
 
 app.get('/health', (_req, res) => {
   res.status(200).json({

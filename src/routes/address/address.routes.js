@@ -7,16 +7,19 @@ const {
   deleteAddress,
   getAllAddresses,
 } = require('../../controllers/address');
+const {
+  validateMiddleware,
+} = require('../../middlewares/validate.middlewares');
 
 const addressRouter = express.Router();
 
 addressRouter
   .route('/create-address')
-  .post(verifyJWT, addressValidators, createAddress);
+  .post(verifyJWT, addressValidators, validateMiddleware, createAddress);
 
 addressRouter
   .route('/update-address/:addressId')
-  .post(verifyJWT, addressValidators, updateAddress);
+  .post(verifyJWT, addressValidators, validateMiddleware, updateAddress);
 
 addressRouter
   .route('/delete-address/:addressId')

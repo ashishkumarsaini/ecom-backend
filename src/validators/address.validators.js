@@ -45,17 +45,17 @@ const cityValidator = body('city')
 const stateValidator = body('state')
   .trim()
   .notEmpty()
-  .withMessage('City is required!');
+  .withMessage('State is required!');
 
 const countryValidator = body('country')
   .trim()
   .notEmpty()
-  .withMessage('City is required!');
+  .withMessage('Country is required!');
 
 const zipCodeValidator = body('zipCode')
   .trim()
   .notEmpty()
-  .withMessage('City is required!');
+  .withMessage('Zipcode is required!');
 
 // routes validators
 const addressValidators = [
