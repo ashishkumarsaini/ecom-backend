@@ -65,8 +65,21 @@ const createProductValidators = [
   ...productColorValidators,
 ];
 
+const getProductValidatiors = [
+  body('productIds')
+    .isArray({ min: 1 })
+    .withMessage('Product ids cannot be empty'),
+];
+
+const updateProductValidator = [
+  productNameValidator,
+  productDescriptionValidator,
+];
+
 module.exports = {
   productNameValidator,
   productDescriptionValidator,
   createProductValidators,
+  getProductValidatiors,
+  updateProductValidator,
 };

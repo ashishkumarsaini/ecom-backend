@@ -3,10 +3,6 @@ const { APIError, APIResponse } = require('../../utils/api');
 const { asyncHandler } = require('../../utils/async-handler');
 
 const createProduct = asyncHandler(async (req, res) => {
-  if (!req.user) {
-    throw new APIError(401, 'Unauthorized Access');
-  }
-
   if (!req.body) {
     throw new APIError(401, 'Product Data not provided');
   }
