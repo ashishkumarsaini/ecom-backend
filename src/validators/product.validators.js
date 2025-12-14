@@ -82,4 +82,5 @@ module.exports = {
   createProductValidators,
   getProductValidatiors,
   updateProductValidator,
+  productColorValidators,
 };

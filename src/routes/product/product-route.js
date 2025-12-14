@@ -7,6 +7,10 @@ const {
   getProducts,
   updateProduct,
   deleteProduct,
+  createColor,
+  getColor,
+  getProductColors,
+  updateColor,
 } = require('../../controllers/product');
 const {
   createProductValidators,
@@ -16,6 +20,7 @@ const {
 const {
   validateMiddleware,
 } = require('../../middlewares/validate.middlewares');
+const { colorDataValidator } = require('../../validators/color.validators');
 
 const productRouter = express.Router();
 
@@ -45,5 +50,27 @@ productRouter
 productRouter
   .route('/delete-product/:productId')
   .delete(verifyJWT, verifyAdmin, deleteProduct);
+
+// color routes
+productRouter
+  .route('/create-color/:productId')
+  .post(
+    verifyJWT,
+    verifyAdmin,
+    colorDataValidator,
+    validateMiddleware,
+    createColor
+  );
+productRouter.route('/', getColor);
+productRouter.route('/:productId', getProductColors);
+productRouter
+  .route('/updated-color/:colorId')
+  .post(
+    verifyJWT,
+    verifyAdmin,
+    colorDataValidator,
+    validateMiddleware,
+    updateColor
+  );
 
 module.exports = { productRouter };

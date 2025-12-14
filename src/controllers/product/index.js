@@ -1,3 +1,9 @@
+const {
+  createColor,
+  getColor,
+  getProductColors,
+  updateColor,
+} = require('./colors');
 const { createProduct } = require('./create-product.controllers');
 const { deleteProduct } = require('./delete-product.controllers');
 const { getProduct } = require('./get-product.controllers');
@@ -10,4 +16,8 @@ module.exports = {
   getProducts,
   updateProduct,
   deleteProduct,
+  createColor,
+  getColor,
+  getProductColors,
+  updateColor,
 };

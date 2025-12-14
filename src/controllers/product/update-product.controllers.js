@@ -2,7 +2,7 @@ const { Product } = require('../../models/product.models');
 const { APIError, APIResponse } = require('../../utils/api');
 const { asyncHandler } = require('../../utils/async-handler');
 
-const updateProduct = asyncHandler(async (req, res) => {
+const updateColor = asyncHandler(async (req, res) => {
   const productId = req.params?.productId;
   const productData = req.body;
 
@@ -32,4 +32,4 @@ const updateProduct = asyncHandler(async (req, res) => {
     .json(new APIResponse(200, { product: updatedProduct }));
 });
 
-module.exports = { updateProduct };
+module.exports = { updateColor };
